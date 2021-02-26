@@ -27,6 +27,29 @@ set (FontReset "${Esc}[m")
 # Dependency: SeqAn3.
 find_package (SeqAn3 QUIET REQUIRED HINTS lib/seqan3/build_system)
 
+# Dependency: SeqAn.
+set (SEQAN_LIBRARY_PATH include/SViper/extern/seqan)
+set (CMAKE_INCLUDE_PATH
+    ${CMAKE_CURRENT_SOURCE_DIR}/${SEQAN_LIBRARY_PATH}/include/
+    ${CMAKE_INCLUDE_PATH})
+set (CMAKE_PREFIX_PATH
+    ${CMAKE_CURRENT_SOURCE_DIR}/${SEQAN_LIBRARY_PATH}/util/cmake/
+    ${CMAKE_PREFIX_PATH})
+find_package (ZLIB)
+find_package (SeqAn REQUIRED)
+
+# Add include directories.
+include_directories (${SEQAN_INCLUDE_DIRS})
+
+# Add definitions set by find_package (SeqAn).
+add_definitions (${SEQAN_DEFINITIONS})
+
+# Add CXX flags found by find_package (SeqAn).
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SEQAN_CXX_FLAGS}")
+
+# Dependency: SViper
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include/SViper/include/)
+
 add_subdirectory (src)
 message (STATUS "${FontBold}You can run `make` to build the application.${FontReset}")
 

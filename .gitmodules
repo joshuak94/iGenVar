@@ -2,6 +2,7 @@
 	path = lib/seqan3
 	url = https://github.com/seqan/seqan3.git
 	branch = master
-[submodule "include/SViper"]
+[submodule "SViper"]
 	path = include/SViper
 	url = git@github.com:smehringer/SViper.git
+	branch = master
